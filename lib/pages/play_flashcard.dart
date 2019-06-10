@@ -14,7 +14,7 @@ class PlayFlashCardPage extends StatefulWidget {
 
 class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
   final _valueName = TextEditingController();
-
+  String _oldValue = "";
   final _blocPlayFlashCard =
       PlayFlashCardBloc(correctAnswers: 0, inCorrectAnswers: 0);
   var _blocFlashCard;
@@ -45,6 +45,9 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
         stream: _blocFlashCard.counterObservable,
         builder: (context, AsyncSnapshot<FlashCard> snapshot) {
           if (snapshot.hasData) {
+            if (snapshot.data.keyName == _oldValue) {
+              _blocFlashCard.getRandom();
+            }
             return Column(
               children: <Widget>[
                 Container(
@@ -85,11 +88,11 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
                     } else {
                       _blocPlayFlashCard.incrementIncorrect();
                     }
-                    setState(
-                      () {
-                        _valueName.text = "";
-                      },
-                    );
+
+                    setState(() {
+                      _valueName.text = "";
+                      _oldValue = snapshot.data.keyName;
+                    });
                     _blocFlashCard.getRandom();
                   },
                 )
