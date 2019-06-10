@@ -18,7 +18,6 @@ class FlashCardBloc {
   FlashCardBloc(String cardSetId) {
     _cardSetId = cardSetId;
     getAllFlashCards();
-    getRandom();
   }
 
   dispose() {

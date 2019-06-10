@@ -17,6 +17,7 @@ class _SetPageState extends State<SetPage> {
   @override
   void dispose() {
     _blocFlashCard.dispose();
+    _blocCardSet.dispose();
     super.dispose();
   }
 

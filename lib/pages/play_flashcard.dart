@@ -29,9 +29,84 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _blocFlashCard = FlashCardBloc(widget.cardSetId);
+    _blocFlashCard.getRandom();
+  }
+
+  Widget _flashCardWidget() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(75, 40, 75, 100),
+      decoration: BoxDecoration(
+        border: new Border.all(width: 2.0, color: Colors.black12),
+      ),
+      child: StreamBuilder(
+        stream: _blocFlashCard.counterObservable,
+        builder: (context, AsyncSnapshot<FlashCard> snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                  ),
+                  child: Center(
+                    child: Text(
+                      snapshot.data.keyName,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                ),
+                Container(
+                  color: Color.fromRGBO(250, 250, 250, 1),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                    child: Center(
+                      child: TextField(
+                        decoration: InputDecoration(labelText: 'Cevap'),
+                        controller: _valueName,
+                      ),
+                    ),
+                  ),
+                ),
+                RaisedButton(
+                  child: Text("Kontrol Et"),
+                  onPressed: () {
+                    if (equalsIgnoreCase(
+                        snapshot.data.valueName, _valueName.text.toString())) {
+                      _blocPlayFlashCard.incrementCorrect();
+                      _blocFlashCard.getRandom();
+                    } else {
+                      _blocPlayFlashCard.incrementIncorrect();
+                    }
+                    setState(
+                      () {
+                        _valueName.text = "";
+                      },
+                    );
+                    _blocFlashCard.getRandom();
+                  },
+                )
+              ],
+            );
+          } else {
+            return Text("Henüz ekleme yapılmamış.");
+          }
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back),
@@ -101,76 +176,9 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
                 ],
               ),
             ),
-            flashCardWidget(context),
+            _flashCardWidget(),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget flashCardWidget(context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(75, 40, 75, 100),
-      decoration: BoxDecoration(
-        border: new Border.all(width: 2.0, color: Colors.black12),
-      ),
-      child: StreamBuilder(
-        stream: _blocFlashCard.counterObservable,
-        builder: (context, AsyncSnapshot<FlashCard> snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: <Widget>[
-                Container(
-                  height: 50,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      snapshot.data.keyName,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                  ),
-                ),
-                Container(
-                  color: Color.fromRGBO(250, 250, 250, 1),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    child: Center(
-                      child: TextField(
-                        decoration: InputDecoration(labelText: 'Cevap'),
-                        controller: _valueName,
-                      ),
-                    ),
-                  ),
-                ),
-                RaisedButton(
-                  child: Text("Kontrol Et"),
-                  onPressed: () {
-                    if (equalsIgnoreCase(
-                        snapshot.data.valueName, _valueName.text.toString())) {
-                      _blocPlayFlashCard.incrementCorrect();
-                      _blocFlashCard.getRandom();
-                    } else {
-                      _blocPlayFlashCard.incrementIncorrect();
-                    }
-                    setState(
-                      () {
-                        _valueName.text = "";
-                      },
-                    );
-                  },
-                )
-              ],
-            );
-          } else {
-            return Text("Henüz ekleme yapılmamış.");
-          }
-        },
       ),
     );
   }
