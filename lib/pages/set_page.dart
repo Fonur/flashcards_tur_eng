@@ -44,8 +44,8 @@ class _SetPageState extends State<SetPage> {
                 heroTag: "play_button",
                 child: Icon(Icons.play_arrow),
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(
-                      "/PlayFlashCard/${widget.cardSetId}");
+                  Navigator.pushReplacementNamed(
+                      context, "/PlayFlashCard/${widget.cardSetId}");
                 },
               ),
               SizedBox(
@@ -55,8 +55,8 @@ class _SetPageState extends State<SetPage> {
                 heroTag: "add_button",
                 child: Icon(Icons.add),
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(
-                      "/CreateFlashCard/${widget.cardSetId}");
+                  Navigator.pushReplacementNamed(
+                      context, "/CreateFlashCard/${widget.cardSetId}");
                 },
               ),
             ],

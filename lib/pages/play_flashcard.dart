@@ -41,7 +41,7 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed('/CreateFlashCard');
+          Navigator.pushReplacementNamed(context, '/CreateFlashCard');
         },
         child: Icon(Icons.add),
       ),

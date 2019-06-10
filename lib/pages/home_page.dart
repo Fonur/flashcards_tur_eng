@@ -94,8 +94,12 @@ class _HomePageState extends State<HomePage> {
               _blocCardSet.add(_cardSet);
               _blocCardSet.getLength().then(
                 (dik) {
-                  Navigator.of(context)
-                      .pushReplacementNamed("/CreateFlashCard/$dik");
+                  if (dik != null) {
+                    print("Dik:" + dik.toString());
+
+                    Navigator.pushReplacementNamed(
+                        context, "/CreateFlashCard/$dik");
+                  }
                 },
               );
             },
@@ -117,7 +121,7 @@ Widget setCardWidget(BuildContext context, String cardSetName, String cardSetId,
         padding: EdgeInsets.all(10),
         child: FlatButton(
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/SetPage/$cardSetId');
+            Navigator.pushReplacementNamed(context, '/SetPage/$cardSetId');
           },
           child: Row(
             children: <Widget>[

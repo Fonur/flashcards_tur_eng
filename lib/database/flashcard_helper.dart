@@ -37,10 +37,12 @@ class FlashCardHelper {
 
   insertFlashCard(FlashCard flashcard) async {
     final db = await database;
+    var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM flashcards");
+    int _id = table.first["id"];
     var raw = await db.rawInsert(
-        "INSERT Into flashcards (keyName, valueName, cardSetId)"
-        "VALUES (?, ?, ?)",
-        [flashcard.keyName, flashcard.valueName, flashcard.cardSetId]);
+        "INSERT Into flashcards (id, keyName, valueName, cardSetId)"
+        "VALUES (?, ?, ?, ?)",
+        [_id, flashcard.keyName, flashcard.valueName, flashcard.cardSetId]);
     return raw;
   }
 
@@ -92,7 +94,7 @@ class FlashCardHelper {
 
   deleteAll(int id) async {
     final db = await database;
-     await db.delete(
+    await db.delete(
       'flashcards',
       where: "cardSetId = ?",
       whereArgs: [id],
