@@ -90,8 +90,12 @@ class FlashCardHelper {
     );
   }
 
-  deleteAll() async {
+  deleteAll(int id) async {
     final db = await database;
-    db.rawDelete("Delete * from flashcards");
+     await db.delete(
+      'flashcards',
+      where: "cardSetId = ?",
+      whereArgs: [id],
+    );
   }
 }

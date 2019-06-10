@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flashcards_for_everything/database/flashcard_helper.dart';
 import 'package:flashcards_for_everything/database/model/set.dart';
 import 'package:flashcards_for_everything/database/set_helper.dart';
 
@@ -21,6 +22,7 @@ class CardSetBloc {
 
   delete(int id) {
     CardSetHelper.db.deleteCardSet(id);
+    FlashCardHelper.db.deleteAll(id);
     getAllCardSets();
   }
 
