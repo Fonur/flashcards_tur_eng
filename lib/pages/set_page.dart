@@ -1,4 +1,5 @@
 import 'package:flashcards_for_everything/database/bloc_flashcard.dart';
+import 'package:flashcards_for_everything/database/bloc_set.dart';
 import 'package:flutter/material.dart';
 
 class SetPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class SetPage extends StatefulWidget {
 
 class _SetPageState extends State<SetPage> {
   var _blocFlashCard;
+  var _blocCardSet = CardSetBloc();
 
   @override
   void dispose() {
@@ -20,7 +22,6 @@ class _SetPageState extends State<SetPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("Widget.cardsetId" + widget.cardSetId);
     _blocFlashCard = FlashCardBloc(widget.cardSetId);
     return Scaffold(
       appBar: AppBar(
@@ -74,9 +75,23 @@ class _SetPageState extends State<SetPage> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
-                    return definitionFlashCardWidget(
-                        snapshot.data[index].keyName,
-                        snapshot.data[index].valueName);
+                    return Dismissible(
+                      background: Container(color: Colors.red),
+                      key: UniqueKey(),
+                      onDismissed: (direction) {
+                        _blocFlashCard.delete(snapshot.data[index].id);
+                        _blocCardSet.decreaseCount(int.parse(widget.cardSetId));
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text("${snapshot.data[index].keyName} silindi"),
+                          ),
+                        );
+                      },
+                      child: definitionFlashCardWidget(
+                          snapshot.data[index].keyName,
+                          snapshot.data[index].valueName),
+                    );
                   },
                 );
               } else

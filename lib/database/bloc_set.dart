@@ -18,7 +18,6 @@ class CardSetBloc {
 
   getAllCardSets() async {
     _cardController.sink.add(await CardSetHelper.db.getCardSets());
-    print("getAllCardSets çalıştı");
   }
 
   delete(int id) {

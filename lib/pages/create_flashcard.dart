@@ -109,7 +109,6 @@ class _CreateFlashCardState extends State<CreateFlashCard> {
               child: Icon(Icons.add),
               heroTag: UniqueKey(),
               onPressed: () {
-                print("widget.cardSetId: " + widget.cardSetId);
                 var flashcard = FlashCard(
                   keyName: _flashCardKeyName.text.toString(),
                   valueName: _flashCardValueName.text.toString(),
