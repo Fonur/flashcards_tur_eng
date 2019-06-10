@@ -112,9 +112,10 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/'),
-        ),
+            icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+              _showDialog();
+            }),
         title: Text("Bilgi Kartları"),
       ),
       floatingActionButton: FloatingActionButton(
@@ -182,6 +183,22 @@ class _PlayFlashCardPageState extends State<PlayFlashCardPage> {
             _flashCardWidget(),
           ],
         ),
+      ),
+    );
+  }
+
+  _showDialog() async {
+    await showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text("Sonuç"),
+        content: Text("${_blocPlayFlashCard.exit()}"),
+        actions: [
+          new FlatButton(
+            child: const Text("Tamam"),
+            onPressed: () => Navigator.pushReplacementNamed(context, '/'),
+          ),
+        ],
       ),
     );
   }

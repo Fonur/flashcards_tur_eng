@@ -27,6 +27,10 @@ class PlayFlashCardBloc {
     _incorrectAnswerCounter.sink.add(inCorrectAnswers);
   }
 
+  exit() {
+    return correctAnswers.toString() + " Doğru, " + inCorrectAnswers.toString() + " Yanlış";
+  }
+
   void dispose() {
     _correctAnswerCounter.close();
     _incorrectAnswerCounter.close();
