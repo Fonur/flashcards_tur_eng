@@ -92,16 +92,7 @@ class _HomePageState extends State<HomePage> {
               var _cardSet =
                   CardSet(setName: _setName.text.toString(), setCount: 0);
               _blocCardSet.add(_cardSet);
-              _blocCardSet.getLength().then(
-                (dik) {
-                  if (dik != null) {
-                    print("Dik:" + dik.toString());
-
-                    Navigator.pushReplacementNamed(
-                        context, "/CreateFlashCard/$dik");
-                  }
-                },
-              );
+              Navigator.pop(context);
             },
           )
         ],

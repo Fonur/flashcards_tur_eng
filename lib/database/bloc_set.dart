@@ -18,6 +18,7 @@ class CardSetBloc {
 
   getAllCardSets() async {
     _cardController.sink.add(await CardSetHelper.db.getCardSets());
+    print("getAllCardSets çalıştı");
   }
 
   delete(int id) {
@@ -59,8 +60,8 @@ class CardSetBloc {
     getAllCardSets();
   }
 
-  add(CardSet cardSet) {
-    CardSetHelper.db.insertCardSet(cardSet);
+  add(CardSet cardSet) async {
+    await CardSetHelper.db.insertCardSet(cardSet);
     getAllCardSets();
   }
 }
