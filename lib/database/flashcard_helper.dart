@@ -21,16 +21,16 @@ class FlashCardHelper {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "learning_cards.db");
+    String path = join(documentsDirectory.path, "learn_english_cards.db");
     return await openDatabase(
       path,
       version: 1,
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         await db.execute(
-            "CREATE TABLE flashcards(id INTEGER IDENTITY(1,1) PRIMARY KEY, keyName TEXT, valueName TEXT, cardSetId INTEGER);");
+            "CREATE TABLE flashcards(id INTEGER PRIMARY KEY, keyName TEXT, valueName TEXT, cardSetId INTEGER);");
         await db.execute(
-            "CREATE TABLE sets(id INTEGER IDENTITY(1,1) PRIMARY KEY, setName TEXT, setCount INTEGER);");
+            "CREATE TABLE sets(id INTEGER PRIMARY KEY, setName TEXT, setCount INTEGER);");
       },
     );
   }

@@ -42,20 +42,20 @@ class CardSetBloc {
     getAllCardSets();
   }
 
-  decreaseCount(int cardSetId) {
-    var cardSet = CardSetHelper.db.getCardSet(cardSetId);
-
-    var _increasedCardSet = CardSet(
+  decreaseCount(int cardSetId) async {
+    var cardSet = await CardSetHelper.db.getCardSet(cardSetId);
+    print(cardSet);
+    var _decreasedCardSet = CardSet(
         id: cardSetId,
         setName: cardSet.setName,
-        setCount: cardSets.setCount - 1);
+        setCount: cardSet.setCount - 1);
 
-    CardSetHelper.db.updateCardSet(_increasedCardSet);
+    CardSetHelper.db.updateCardSet(_decreasedCardSet);
     getAllCardSets();
   }
 
   update(CardSet cardSet) {
-    CardSetHelper.db.updateCardSet(cardSet);
+    CardSetHelper.db.updateCardSet(cardSet);  
     getAllCardSets();
   }
 

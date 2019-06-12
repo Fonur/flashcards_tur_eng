@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
                   background: Container(color: Colors.red),
                   key: UniqueKey(),
                   onDismissed: (direction) {
+                    print(snapshot.data[index].id);
                     _blocCardSet.delete(snapshot.data[index].id);
 
                     Scaffold.of(context).showSnackBar(SnackBar(

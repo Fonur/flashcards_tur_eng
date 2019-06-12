@@ -16,6 +16,7 @@ class FlashCardApp extends StatelessWidget  {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner : false,
       navigatorObservers: [routeObserver],
       theme: ThemeData(
           primaryColor: Color.fromRGBO(26, 35, 126, 1),
