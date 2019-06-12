@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bilgi Kartı Setleri'),
+        automaticallyImplyLeading: false,
       ),
       floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: _showDialog),
@@ -127,10 +128,15 @@ Widget setCardWidget(BuildContext context, String cardSetName, String cardSetId,
                 children: <Widget>[
                   IconButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, "/PlayFlashCard/$cardSetId");
+                      if (int.parse(cardSetCount) < 1) {
+                        Navigator.pushReplacementNamed(
+                            context, '/CreateFlashCard/$cardSetId');
+                      } else {
+                        Navigator.pushReplacementNamed(
+                            context, "/PlayFlashCard/$cardSetId");
+                      }
                     },
-                    icon: Icon(Icons.play_circle_outline),
+                    icon: int.parse(cardSetCount) >= 1 ? Icon(Icons.play_circle_outline) : Icon(Icons.add_circle, color: Theme.of(context).accentColor,)
                   ),
                   Text("$cardSetCount kart")
                 ],

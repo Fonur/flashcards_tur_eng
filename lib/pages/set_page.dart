@@ -32,45 +32,44 @@ class _SetPageState extends State<SetPage> {
           onPressed: () => Navigator.pushReplacementNamed(context, '/'),
         ),
       ),
-      body: ListView(
-        children: <Widget>[
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 40,
-              ),
-              FloatingActionButton(
-                heroTag: "play_button",
-                child: Icon(Icons.play_arrow),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, "/PlayFlashCard/${widget.cardSetId}");
-                },
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              FloatingActionButton(
-                heroTag: "add_button",
-                child: Icon(Icons.add),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, "/CreateFlashCard/${widget.cardSetId}");
-                },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          StreamBuilder(
-            stream: _blocFlashCard.flashcards,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
+      body: StreamBuilder(
+        stream: _blocFlashCard.flashcards,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 40,
+                    ),
+                    snapshot.data.length > 1
+                        ? FloatingActionButton(
+                            heroTag: "play_button",
+                            child: Icon(Icons.play_arrow),
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context,
+                                  "/PlayFlashCard/${widget.cardSetId}");
+                            },
+                          )
+                        : Text(""),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    FloatingActionButton(
+                      heroTag: "add_button",
+                      child: Icon(Icons.add),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, "/CreateFlashCard/${widget.cardSetId}");
+                      },
+                    ),
+                  ],
+                ),
+                ListView.builder(
                   itemCount: snapshot.data.length,
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -94,12 +93,12 @@ class _SetPageState extends State<SetPage> {
                           snapshot.data[index].valueName),
                     );
                   },
-                );
-              } else
-                return Text("");
-            },
-          ),
-        ],
+                ),
+              ],
+            );
+          } else
+            return Text("");
+        },
       ),
     );
   }
