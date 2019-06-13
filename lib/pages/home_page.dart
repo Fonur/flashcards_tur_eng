@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bilgi Kartı Setleri'),
+        title: Text('Kelime Kartı Setleri'),
         automaticallyImplyLeading: false,
       ),
       floatingActionButton:

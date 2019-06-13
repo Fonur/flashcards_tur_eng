@@ -37,7 +37,7 @@ class _CreateFlashCardState extends State<CreateFlashCard> {
     _blocFlashCard = FlashCardBloc(widget.cardSetId);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Yeni Bilgi Kartı"),
+        title: Text("Yeni Kelime Kartı"),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back),
           onPressed: () => Navigator.pushReplacementNamed(context, '/SetPage/${widget.cardSetId}'),
@@ -86,12 +86,12 @@ class _CreateFlashCardState extends State<CreateFlashCard> {
                 children: <Widget>[
                   TextField(
                     decoration:
-                        InputDecoration(labelText: 'Türkçe', hintText: 'Kütük'),
+                        InputDecoration(labelText: 'Türkçe', hintText: 'Kelime'),
                     controller: _flashCardKeyName,
                   ),
                   TextField(
                     decoration: InputDecoration(
-                        labelText: 'İngilizce', hintText: 'Log'),
+                        labelText: 'İngilizce', hintText: 'Word'),
                     controller: _flashCardValueName,
                   ),
                 ],

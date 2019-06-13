@@ -26,7 +26,7 @@ class _SetPageState extends State<SetPage> {
     _blocFlashCard = FlashCardBloc(widget.cardSetId);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bilgi Kartı Listesi"),
+        title: Text("Kelime Kartı Listesi"),
         leading: new IconButton(
           icon: new Icon(Icons.arrow_back),
           onPressed: () => Navigator.pushReplacementNamed(context, '/'),
